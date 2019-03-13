@@ -1,0 +1,10 @@
+Header#main-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: coral;
+    color: #fff;
+    padding: 20px;
+    font-weight: bold;
+}
