@@ -1,4 +1,5 @@
 a#article{
+    
     display: flex;
     justify-content: space-around;
     margin: 10px;
@@ -35,4 +36,8 @@ div#actionButton button{
     padding: 5px;
     font-weight: 300;
     border-radius: 3px;
+}
+
+div#actionButton button[disabled]{
+    opacity: 0.4;
 }

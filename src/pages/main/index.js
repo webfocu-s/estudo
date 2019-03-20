@@ -6,7 +6,9 @@ import './style.css';
 export default class Main extends Component{
 
     state = {
-        products : []
+        products : [],
+        productInfo: [],
+        page : 1
     }
 
     
@@ -14,35 +16,42 @@ export default class Main extends Component{
      this.loadProdutos();
     }
 
-    loadProdutos = async () => {
+    loadProdutos = async (page = 1) => {
 
-        const dados = await api.get('/products');
+        const dados = await api.get(`/products?page=${page}`);
         const { docs, ...productInfo } = dados.data;
 
-        this.setState( { products: docs, productInfo} );
-      
-       console.log('====================================');
-       console.log(this.state.products);
-       console.log('====================================');
-        
+        this.setState( { products: docs, productInfo: productInfo, page } );
+       // console.log(this.state.productInfo);
     }
 
     nextPage = () => {
-      const {page, pageInfo} = this.state.products;
+        const { page, productInfo } = this.state;
 
-     // if(page === pageInfo.pages) return;
-      console.log('====================================');
-      console.log(page);
-      console.log('====================================');
+       if( page === productInfo.pages ) return;
+         
+       let pagina =  page + 1;
+
+        this.loadProdutos(pagina);
+        // console.log(pagina);
+       // console.log(productInfo);
+
     }
     prevPage = () => {
+
+        const {page} = this.state;
+        if(page === 1) return
+
+        let pagina = page - 1
+        // this.loadProdutos(pagina);
+        this.loadProdutos(pagina);
        
     }
 
   
 
    render(){
-    const { products } = this.state;
+    const { products ,page, productInfo } = this.state;
        return (
        <div>
        
@@ -53,20 +62,18 @@ export default class Main extends Component{
             <div id="img_product"> 
                 <img alt="Culrs" src="https://ph-files.imgix.net/2980900f-ddbe-406b-a188-ed1f7fcc1d52?auto=format&auto=compress&codec=mozjpeg&cs=strip&w=80&h=80&fit=crop"/> 
             </div>           
-
             <div>
             <h3>{product.title}</h3>
             <p>{product.description}</p>
             </div>
-            
             </a>
 
 
        ))}
 
        <div id="actionButton">
-           <button onClick={this.prevPage}>Anterior</button>
-           <button onClick={this.nextPage}>Próximo</button>
+           <button disabled={page === 1} onClick={this.prevPage}>Anterior</button>
+           <button disabled={page === productInfo.pages} onClick={this.nextPage}>Próximo</button>
        </div>
 
        </div>
