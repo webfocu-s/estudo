@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
 import Header from './components/Header';
-import Main from './pages/main';
+//import Main from './pages/main';
+import Route from './routes';
 //import logo from './logo.svg';
 //import './App.css';
 
@@ -9,7 +10,7 @@ const App = () => (
 
   <div className="App">
         < Header/>
-        <Main/>
+        <Route/>
   </div>
 
 );

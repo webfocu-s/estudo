@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import api from '../../services/api';
 import './style.css';
+import { Link } from 'react-router-dom';
+
 
 export default class Main extends Component{
 
@@ -58,15 +60,20 @@ export default class Main extends Component{
        { products.map( product => (
 
 
-            <a key={product._id} href={product.url} target="" id="article">
-            <div id="img_product"> 
+           <div>
+
+        
+            <div key={product._id} id="img_product" id="article"> 
                 <img alt="Culrs" src="https://ph-files.imgix.net/2980900f-ddbe-406b-a188-ed1f7fcc1d52?auto=format&auto=compress&codec=mozjpeg&cs=strip&w=80&h=80&fit=crop"/> 
             </div>           
             <div>
             <h3>{product.title}</h3>
             <p>{product.description}</p>
+            <Link to ={`/products/${product._id}`}>acessar</Link>
             </div>
-            </a>
+            
+           </div>
+            
 
 
        ))}
